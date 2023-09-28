@@ -16,9 +16,16 @@ output:
 
 Every Saturday morning, at the same time, a primatologist goes and sits in the forest to listen for titi monkey calls, counting the number of calls they hear in a 2 hour window from 5am to 7am. Based on previous knowledge, she believes that the mean number of calls she will hear in that time is exactly 15. Let X represent the appropriate Poisson random variable of the number of calls heard in each monitoring session.
 
+Load relevant libraries:
+```{r libraries, eval= FALSE}
+library(prettydoc)
+library(yaml)
+library(tidyverse)
+```
+
 # <span style="font-size:12pt;">**Question #1: What is the probability that she will hear more than 8 calls during any given session?**</span>
 
-```{R, Question #1}
+```{R, Question 1}
 x <- 15 #Define the mean number of calls
 
 probability_less_than_8 <- ppois(8, x) #Calculate the probability of hearing 8 or fewer calls
@@ -29,7 +36,7 @@ cat("Probability of hearing more than 8 calls", probability_more_than_8) #Result
 ```
 # <span style="font-size:12pt;">**Question #2: What is the probability that she will hear no calls in a session?**</span>
 
-```{R, Question #2}
+```{R, Question 2}
 
 x <- 15 #Define the mean number of calls
 
@@ -39,7 +46,7 @@ cat("Probability of hearing no calls in a session", probability_no_calls) #Resul
 ```
 # <span style="font-size:12pt;">**Question #3: What is the probability that she will hear exactly 3 calls in a session?**</span>
 
-```{R, Question #3}
+```{R, Question 3}
 x <- 15 #Define the mean number of calls
 
 probability_3_calls <- dpois(3, x) #Calculate the probability of hearing exactly 3 calls
@@ -48,7 +55,7 @@ cat("Probability of hearing exactly 3 calls in a session", probability_3_calls) 
 ```
 # <span style="font-size:12pt;">**Question #4: Plot the relevant Poisson mass function over the values in range 0 ≤ x ≤ 30.**</span>
 
-```{R, Question #4}
+```{R, Question 4}
 x <- 0:30 #Assign values in the range of 0 ≤ x ≤ 30 to the variable x
 l = 15 #Define lambda
 probset <- dpois(x = x, lambda = l) #Create variable to calculate using dpois
@@ -57,21 +64,22 @@ barplot(probset, names.arg = x, space = 0, xlab = "x", ylab = "Pr(X = x)", main 
 
 # <span style="font-size:12pt;">**Question #5: Simulate 104 results from this distribution (i.e., 2 years of Saturday monitoring sessions).**</span>
 
-```{R, Question #5}
+```{R, Question 5}
 simulated_results <- rpois(n = 104, lambda = 15)
 ```
 
 # <span style="font-size:12pt;">**Question #6: Plot the simulated results using hist() and use xlim() to set the horizontal limits to be from 0 to 30. How does your histogram compare to the shape of the probability mass function you plotted above.**</span>
 
-```{R, Question #6}
-hist(simulated_results, xlim = c(0, 30), breaks = seq (0:30),
+```{R, Question 6}
+hist(simulated_results, xlim = c(0, 30), breaks = seq (1:30),
      main = "Simulated 104 Results (2 Years of Saturday Monitoring Sessions)",
      xlab = "Number of Titi Monkey Calls in a 2 Hour Window (x)",
      ylab = "Frequency",
      col = "darkcyan",
      border = "darkgreen")
-
 ```
+
+The general shape of both my histogram and the probability mass function plot are similar. However, my histogram exhibits a much less even distribution.
 
 # <span style="font-size:12pt;">**Challenges I Faced For Homework 2**</span>
 
