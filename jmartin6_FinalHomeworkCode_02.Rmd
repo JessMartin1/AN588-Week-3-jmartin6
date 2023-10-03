@@ -1,0 +1,130 @@
+---
+title: "AN588 Final Homework Code 2 (Fall 2023)"
+author: "Jess Martin"
+date: "10/04/2023"
+output: 
+  prettydoc::html_pretty:
+    theme: "cayman"
+    toc: yes
+---
+
+<center>
+
+![Adorable Titi Monkey Family!](https://cnprc.ucdavis.edu/wp-content/uploads/2014/05/CNPRCtitimonkeys%C2%A9K.West-CNPRC003.jpg)
+
+<div align="left">
+
+# [**Background Information**]{style="font-size:12pt;"}
+
+Every Saturday morning, at the same time, a primatologist goes and sits in the forest to listen for titi monkey calls, counting the number of calls they hear in a 2 hour window from 5am to 7am. Based on previous knowledge, she believes that the mean number of calls she will hear in that time is exactly 15. Let X represent the appropriate Poisson random variable of the number of calls heard in each monitoring session.
+
+Load relevant libraries:
+
+```{r libraries, eval= FALSE}
+library(prettydoc)
+library(yaml)
+library(tidyverse)
+```
+
+# [**Question #1: What is the probability that she will hear more than 8 calls during any given session?**]{style="font-size:12pt;"}
+
+```{R, Question 1}
+x <- 15 #Define the mean number of calls
+
+probability_less_than_8 <- ppois(8, x) #Calculate the probability of hearing 8 or fewer calls
+
+probability_more_than_8 <- 1 - probability_less_than_8 #Calculate the probability of hearing more than 8 calls
+
+cat("Probability of hearing more than 8 calls", probability_more_than_8) #Result
+```
+
+# [**Question #2: What is the probability that she will hear no calls in a session?**]{style="font-size:12pt;"}
+
+```{R, Question 2}
+
+x <- 15 #Define the mean number of calls
+
+probability_no_calls <- ppois(0, x) #Calculate the probability of hearing no calls
+
+cat("Probability of hearing no calls in a session", probability_no_calls) #Result
+```
+
+# [**Question #3: What is the probability that she will hear exactly 3 calls in a session?**]{style="font-size:12pt;"}
+
+```{R, Question 3}
+x <- 15 #Define the mean number of calls
+
+probability_3_calls <- dpois(3, x) #Calculate the probability of hearing exactly 3 calls
+
+cat("Probability of hearing exactly 3 calls in a session", probability_3_calls) #Result
+```
+
+# [**Question #4: Plot the relevant Poisson mass function over the values in range 0 ≤ x ≤ 30.**]{style="font-size:12pt;"}
+
+```{R, Question 4}
+x <- 0:30 #Assign values in the range of 0 ≤ x ≤ 30 to the variable x
+l = 15 #Define lambda
+probset <- dpois(x = x, lambda = l) #Create variable to calculate using dpois
+barplot(probset, names.arg = x, space = 0, xlab = "x", ylab = "Pr(X = x)", main = "Poisson Mass Function") #Resulting plot
+```
+
+# [**Question #5: Simulate 104 results from this distribution (i.e., 2 years of Saturday monitoring sessions).**]{style="font-size:12pt;"}
+
+```{R, Question 5}
+simulated_results <- rpois(n = 104, lambda = 15)
+```
+
+# [**Question #6: Plot the simulated results using hist() and use xlim() to set the horizontal limits to be from 0 to 30. How does your histogram compare to the shape of the probability mass function you plotted above.**]{style="font-size:12pt;"}
+
+```{R, Question 6}
+hist(simulated_results, xlim = c(0, 30), breaks = seq (1:30),
+     main = "Simulated 104 Results (2 Years of Saturday Monitoring Sessions)",
+     xlab = "Number of Titi Monkey Calls in a 2 Hour Window (x)",
+     ylab = "Frequency",
+     col = "darkcyan",
+     border = "darkgreen")
+```
+
+The general shape of both my histogram and the probability mass function plot are similar. However, my histogram exhibits a much less even distribution.
+
+# [**Peer Commentary**]{style="font-size:12pt;"}
+
+*\*Emiley: I love the monkey photo! So cute!* Awe, thank you!
+
+*\*Emiley: this is a really organized way to set up all the libraries. I'll definitely be using this in my code.* So sweet, thank you!
+
+*\*Emiley: Really liked how their is a background behind the headers. Nicely done.* Thank you!
+
+*\*Emiley: I got the same result but calculated it as the probability of hearing 9 or more calls. Your code is very organized.* Interesting, there are so many ways to get the same result in R. I love it!
+
+*\*Emiley: I did it this way too.* Yay, great!
+
+*\*Emiley: I like how you changed the color. I changed all my graphs to purple haha. All your work looks really good, I wrote mine in a similar way. I also noticed my histogram had a less even distribution but I'm sure it just relates to sample size. After running the simulation a few times, it smoothed out.* YES! Adding those little details (e.g., graph color) is honestly the best part! I will have to use purple next time. 
+
+# [**Challenges I Faced For Homework 2**]{style="font-size:12pt;"}
+
+1.  I struggled with alignment during this homework assignment. That was until Sam showed me how to center align my image, and Bhavya showed me how to left align my text. Functions to do this are in the Rmd file.
+2.  I was not completely sure about what the ppois() and dpois() functions were, and when/why you should use them. This [website](https://rpubs.com/eyadalkronz/837816) helped me.
+3.  I was initially unsure how to approach question #5 and did not know how to go about answering it. I referred back to the above website and learned about the rpois() function. It did work, yet I'm not sure if it is correct.
+4.  I struggled to pick a titi monkey image. So many cute ones, so hard to decide!
+5.  I often forget to include annotations as I write my code. I need to get better about this.
+
+# [**My Experience With Homework 2**]{style="font-size:12pt;"}
+
+**Three things that I found difficult about this assignment:**
+
+1. When I knitted my Rmd file, my plots did not show up in the HTML file. This drove me crazy until I realized that the issue stemmed from having hash symbols in the curly brackets of my code chunks.
+
+2. I moved through this homework assignment too quickly and almost forgot to answer the question, "how does your histogram compare to the shape of the probability mass function you plotted above?" 
+
+3. Even though I have performed this process multiple times, I always forget and must refer back to my notes when cloning a repo, creating a git-referenced project from the cloned repo, duplicating the original code, and renaming it.
+
+**Two things that I liked from my peer's comments:**
+
+1. So complimentary, it's always nice to know someone likes your code.
+
+2. Lots of validation and recognition that my approaches/ answers were correct! 
+
+**One thing I think could have used improvement from my peer's comments:**
+
+1. Nothing! I couldn't have asked for more pleasant peer comments.
